@@ -25,7 +25,6 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 
 # Add user to the docker group
 echo -e "${GREEN}Updating group membership${NC}"
-sudo groupadd docker || check_error "groupadd docker"
 sudo usermod -aG docker $USER || check_error "usermod"
 sudo su $USER || check_error "su $USER"
 

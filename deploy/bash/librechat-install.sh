@@ -16,14 +16,18 @@ check_error() {
 # Install Docker
 echo -e "${GREEN}Installing Docker${NC}"
 sudo apt-get update || check_error "apt-get update"
-sudo apt-get remove docker docker-engine docker.io containerd runc || check_error "apt-get remove"
+sudo apt-get remove docker docker-engine docker.io containerd runc
 sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common || check_error "apt-get install"
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg || check_error "curl"
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null || check_error "tee"
 sudo apt-get update || check_error "apt-get update"
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin || check_error "apt-get install"
+
+# Add user to the docker group
+echo -e "${GREEN}Updating group membership${NC}"
+sudo groupadd docker || check_error "groupadd docker"
 sudo usermod -aG docker $USER || check_error "usermod"
-newgrp docker || check_error "newgrp"
+sudo su $USER || check_error "su $USER"
 
 # Prompt user for update confirmation
 echo -e "${GREEN}Update Confirmation${NC}"

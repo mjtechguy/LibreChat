@@ -15,7 +15,7 @@ check_error() {
 
 # Prompt for confirmation to proceed with removal
 echo -e "${RED}WARNING! This will remove LibreChat completely from this system.${NC}"
-read -p "$(echo -e ${RED}Type 'librechat' to confirm the removal of LibreChat: ${NC})" confirmation
+read -p "$(echo -e ${RED}Type "librechat" to confirm the removal of LibreChat: ${NC})" confirmation
 if [[ $confirmation != "librechat" ]]; then
     echo -e "${RED}Removal of LibreChat cancelled by the user.${NC}"
     exit 1
@@ -23,7 +23,7 @@ fi
 
 # Stop Docker services
 echo -e "${GREEN}Stopping Docker services${NC}"
-docker compose -f LibreChat/docker-compose.yml down || check_error "docker-compose down"
+docker compose down || check_error "docker-compose down"
 
 # Uninstall Docker
 echo -e "${GREEN}Uninstalling Docker${NC}"
@@ -34,7 +34,7 @@ sudo apt-get autoremove -y --purge || check_error "apt-get autoremove"
 read -p "Do you want to remove the MongoDB data directory './data-node'? (y/n): " remove_data
 if [[ $remove_data =~ ^[Yy]$ ]]; then
     echo -e "${GREEN}Removing MongoDB data directory './data-node'${NC}"
-    rm -rf LibreChat/deploy/bash/data-node || check_error "rm -rf data-node"
+    rm -rf ../../data-node || check_error "rm -rf data-node"
 else
     echo -e "${GREEN}Skipping removal of MongoDB data directory.${NC}"
 fi

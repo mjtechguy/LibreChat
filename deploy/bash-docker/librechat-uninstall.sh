@@ -14,7 +14,7 @@ check_error() {
 }
 
 # Prompt for confirmation to proceed with removal
-echo -e "${RED}WARNING! This will remove LibreChat completely from this system.${NC}"
+echo -e "${RED}WARNING! This will remove LibreChat and Docker completely from this system.${NC}"
 read -p "$(echo -e ${RED}Type "librechat" to confirm the removal of LibreChat: ${NC})" confirmation
 if [[ $confirmation != "librechat" ]]; then
     echo -e "${RED}Removal of LibreChat cancelled by the user.${NC}"

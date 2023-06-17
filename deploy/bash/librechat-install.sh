@@ -51,6 +51,7 @@ if [[ $update_env =~ ^[Nn]$ ]]; then
     sed -i "s/OPENAI_API_KEY=\"user_provided\"/OPENAI_API_KEY=\"$openai_key\"/" .env.example || check_error "sed"
     cp .env.example ../../.env || check_error "cp"
     echo -e "${GREEN}Updated .env file with OpenAI API key${NC}"
+    echo -e "${GREEN}This only adds your OpenAI key to the .env file. If you need to make other changes, please modify the .env file manually.${NC}"
 else
     echo -e "${GREEN}Skipping .env file update${NC}"
 fi

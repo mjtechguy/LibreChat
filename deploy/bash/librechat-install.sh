@@ -26,7 +26,6 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 # Add user to the docker group
 echo -e "${GREEN}Updating group membership${NC}"
 sudo usermod -aG docker $USER || check_error "usermod"
-exec su -l $USER
 
 # Prompt user for update confirmation
 echo -e "${GREEN}Update Confirmation${NC}"
@@ -60,9 +59,11 @@ else
 fi
 
 # Start Docker services
+newgrp docker <<EONG
 echo -e "${GREEN}Starting Docker services${NC}"
 docker compose build || check_error "docker compose build"
 docker compose up -d || check_error "docker compose up"
+EONG
 
 # Query primary IP of the machine
 IP=$(hostname -I | awk '{print $1}')

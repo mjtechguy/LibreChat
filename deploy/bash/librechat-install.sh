@@ -61,4 +61,8 @@ echo -e "${GREEN}Starting Docker services${NC}"
 docker compose build || check_error "docker compose build"
 docker compose up -d || check_error "docker compose up"
 
+# Query primary IP of the machine
+IP=$(hostname -I | awk '{print $1}')
+
 echo -e "${GREEN}Installation completed successfully.${NC}"
+echo -e "${GREEN}You can now access your application at http://$IP:3080${NC}"
